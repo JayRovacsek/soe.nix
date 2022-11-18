@@ -1,7 +1,22 @@
 # soe.nix
-A Nixos / Darwin wrapper for systemc configurations that applies a standard operating environment (SOE) approach 
+A Nixos / Darwin wrapper for system configurations that applies a standard operating environment (SOE) approach 
 to system management. Note that for the remainder of the readme the concept of a SOE will be 
 referenced as a "profile" (except in code examples)
+
+# Purpose
+This flake intends to make configuration of systems more approachable by breaking the problem down into
+profiles that can be layered to segments. Consider it to be a parallel to the docker layer concept,
+but intentionally chaining inputs and therefore making the end result both far more reproducible and
+configurable by a consumer.
+
+# Background
+This flake assumes a basic understanding of the nix language as well as nixos/nix-darwin.
+Consider reading these resources if you haven't already:
+* [how nix works](https://nixos.org/guides/how-nix-works.html) - a 10,000 foot view of how nix works
+* [nix language basics](https://nixos.org/guides/nix-language.html#reading-nix-language) - basics of the nix language
+* [nix-pills](https://nixos.org/guides/nix-pills/) - a high-level coverage of most things nix
+* [nix.dev](https://nix.dev/) - further coverage of the how/why/when/what of nix in general across a number of domains
+* 
 
 ## Theory of Operation
 Currently this repo is a stub due to a lack of time to pursuit it further. The main objectives of this
