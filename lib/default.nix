@@ -1,6 +1,6 @@
 { self }:
 let
-  inherit (self.inputs.nixpkgs.lib) nixosSystem;
+  inherit (self.inputs.nixpkgs.lib) nixosSystem recursiveUpdate;
   inherit (self.inputs.darwin.lib) darwinSystem;
 in {
   inherit darwinSystem nixosSystem;
