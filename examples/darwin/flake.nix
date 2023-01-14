@@ -8,11 +8,16 @@
       url = "github:lnl7/nix-darwin/master";
     };
 
-    soe.url = "github:jayrovacsek/soe.nix/main";
-
+    soe = {
+      url = "github:jayrovacsek/soe.nix/main";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        darwin.follows = "darwin";
+      };
+    };
   };
 
-  outputs = { self, darwin, nixpkgs }: {
+  outputs = { self, darwin, nixpkgs, soe }: {
     darwinConfigurations."soe" = darwin.lib.darwinSystem {
       system = "x86_64-darwin";
       modules = [ ./soe ];

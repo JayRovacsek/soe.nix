@@ -6,4 +6,5 @@ in {
   inherit darwinSystem nixosSystem;
   nixosSoe = nixosSystem;
   darwinSoe = darwinSystem;
+  applySoe = { system, soe }: recursiveUpdate system soe;
 }

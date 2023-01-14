@@ -36,8 +36,6 @@
       devShells = import ./devShells { inherit self system; };
       formatter = import ./formatter { inherit self system; };
     }) // {
-      darwinModules = import ./darwinModules { inherit self; };
       lib = import ./lib { inherit self; };
-      nixosModules = import ./nixosModules { inherit self; };
     };
 }
