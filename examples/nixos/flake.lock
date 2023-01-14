@@ -158,11 +158,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1673669990,
-        "narHash": "sha256-NvKs+bdzWqFUYjgN8xZshp2KgiQbsCp8lAoAXpmNqGI=",
+        "lastModified": 1673671353,
+        "narHash": "sha256-UyNyPJ9uiI1BdjeeVdZA7+HmsvAG/VzWMcCXJDhxKPY=",
         "owner": "jayrovacsek",
         "repo": "soe.nix",
-        "rev": "a9b785f440d280c8b04ce1665231ea8a6d5fa774",
+        "rev": "beb7a7ae61e09da51aeb9f51e4aefe858856e71a",
         "type": "github"
       },
       "original": {

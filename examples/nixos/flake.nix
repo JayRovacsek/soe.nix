@@ -10,21 +10,24 @@
   };
 
   outputs = { self, soe, ... }: {
-    nixosConfigurations = {
-      "soe" = soe.lib.nixosSoe {
+    soes = {
+      "base" = soe.lib.nixosSoe {
         system = "x86_64-linux";
-        modules = [ ./soe ];
+        modules = [ ./base ];
       };
+    };
 
+    nixosConfigurations = {
       # This system may represent a user device, the settings of the 
-      # above "soe" are applied with priority over this system so that
+      # above "soe" (base) are applied with priority over this system so that
       # base settings are inherited by this configuration.
-      "arcanine" =
-        soe.nixosModules.applySoe self.outputs.nixosConfigurations.soe
-        soe.lib.nixosSystem {
+      "arcanine" = soe.lib.applySoe {
+        soe = self.outputs.soes.base;
+        system = soe.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [ ./arcanine ];
         };
+      };
     };
   };
 }
