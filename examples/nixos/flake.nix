@@ -15,6 +15,11 @@
         system = "x86_64-linux";
         modules = [ ./base ];
       };
+
+      "default" = soe.lib.nixosSoe {
+        system = "x86_64-linux";
+        modules = [ ./default ];
+      };
     };
 
     nixosConfigurations = {

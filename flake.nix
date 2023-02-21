@@ -33,8 +33,8 @@
     let inherit (flake-utils.lib) allSystems;
     in flake-utils.lib.eachSystem allSystems (system: {
       checks = import ./checks { inherit self system; };
-      devShells = import ./devShells { inherit self system; };
-      formatter = import ./formatter { inherit self system; };
+      devShells = import ./shells { inherit self system; };
+      formatter = self.inputs.nixpkgs.legacyPackages.${system}.nixfmt;
     }) // {
       lib = import ./lib { inherit self; };
     };
