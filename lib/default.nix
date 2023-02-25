@@ -9,31 +9,28 @@ in {
   nixosSoe = nixosSystem;
   darwinSoe = darwinSystem;
 
-  diff = base: extended:
+  diff = base:
     filterAttrs (name: value:
-      # Check if target value has the same property
-      if (builtins.hasAttr name extended) then
+      # Check if base set has the same property
+      if (builtins.hasAttr name base) then
       # If it does and the value is a set, then recurse 
       # Note that is current would be assuming both values are
       # sets and could fail
         if builtins.typeOf value == "set" then
-          builtins.trace "A"
-          (self.lib.diff value (builtins.getAttr name extended))
+          (self.lib.diff (builtins.getAttr name base) value) != { }
         else
-        # Check the value for equality otherwise
-        # TODO: handle the fact lists can have sets also
-          (builtins.getAttr name extended) == value
+        # Check the value for equality
+        # TODO: handle the fact lists can have sets also (or would we expect this behavior?)
+          (builtins.getAttr name base) == value
       else
-      # Extended does not have the value
-        false
-
-    ) base;
+      # Extended has a value base does not
+        true);
 
   applySoe = { system, soe }:
     let
       inherit (soe.pkgs) system;
       base = nixosSystem { inherit system; };
-      diff = { };
-      updated = recursiveUpdate system soe;
-    in { };
+      delta = self.lib.diff base soe;
+      updated = recursiveUpdate system delta;
+    in updated;
 }
