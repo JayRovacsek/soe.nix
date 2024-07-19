@@ -26,10 +26,9 @@ in {
       # Extended has a value base does not
         true);
 
-  applySoe = { system, soe }:
+  applySoe = { soe, system }:
     let
-      inherit (soe.pkgs) system;
-      base = nixosSystem { inherit system; };
+      base = nixosSystem { inherit (soe.pkgs) system; };
       delta = self.lib.diff base soe;
       updated = recursiveUpdate system delta;
     in updated;

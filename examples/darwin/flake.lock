@@ -2,9 +2,7 @@
   "nodes": {
     "darwin": {
       "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
+        "nixpkgs": ["nixpkgs"]
       },
       "locked": {
         "lastModified": 1673295039,
@@ -54,10 +52,7 @@
     },
     "gitignore": {
       "inputs": {
-        "nixpkgs": [
-          "soe",
-          "nixpkgs"
-        ]
+        "nixpkgs": ["soe", "nixpkgs"]
       },
       "locked": {
         "lastModified": 1660459072,
@@ -108,22 +103,10 @@
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat",
-        "flake-utils": [
-          "soe",
-          "flake-utils"
-        ],
-        "gitignore": [
-          "soe",
-          "gitignore"
-        ],
-        "nixpkgs": [
-          "soe",
-          "nixpkgs"
-        ],
-        "nixpkgs-stable": [
-          "soe",
-          "nixpkgs-stable"
-        ]
+        "flake-utils": ["soe", "flake-utils"],
+        "gitignore": ["soe", "gitignore"],
+        "nixpkgs": ["soe", "nixpkgs"],
+        "nixpkgs-stable": ["soe", "nixpkgs-stable"]
       },
       "locked": {
         "lastModified": 1673627351,
@@ -148,14 +131,10 @@
     },
     "soe": {
       "inputs": {
-        "darwin": [
-          "darwin"
-        ],
+        "darwin": ["darwin"],
         "flake-utils": "flake-utils",
         "gitignore": "gitignore",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
+        "nixpkgs": ["nixpkgs"],
         "nixpkgs-stable": "nixpkgs-stable",
         "pre-commit-hooks": "pre-commit-hooks"
       },
