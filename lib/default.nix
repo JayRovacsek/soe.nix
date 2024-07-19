@@ -1,8 +1,7 @@
 { self }:
 let
-  inherit (self.inputs.nixpkgs.lib) nixosSystem getAttrs;
-  inherit (self.inputs.nixpkgs.lib.attrsets)
-    recursiveUpdate filterAttrs setAttrByPath;
+  inherit (self.inputs.nixpkgs.lib) nixosSystem;
+  inherit (self.inputs.nixpkgs.lib.attrsets) recursiveUpdate filterAttrs;
   inherit (self.inputs.darwin.lib) darwinSystem;
 in {
   inherit darwinSystem nixosSystem;

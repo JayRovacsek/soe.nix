@@ -17,7 +17,7 @@
     };
   };
 
-  outputs = { self, darwin, nixpkgs, soe }: {
+  outputs = { darwin, ... }: {
     darwinConfigurations."soe" = darwin.lib.darwinSystem {
       system = "x86_64-darwin";
       modules = [ ./soe ];
