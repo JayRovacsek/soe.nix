@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     soe = {
-      url = "github:jayrovacsek/soe.nix/main";
+      url = "github:jayrovacsek/soe.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
