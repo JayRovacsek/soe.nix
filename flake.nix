@@ -36,14 +36,18 @@
           pre-commit = git-hooks.lib.${system}.run {
             src = self;
             hooks = {
-              nixfmt.enable = true;
-              statix.enable = false;
-              prettier-write = {
+              actionlint.enable = true;
+              deadnix = {
                 enable = true;
-                name = "Prettier Write";
-                entry = "${pkgs.nodePackages.prettier}/bin/prettier --write .";
-                files = "\\.(js|ts|jsx|tsx|json|yml|yaml)$";
-                language = "system";
+                settings.edit = true;
+              };
+              nixfmt = {
+                enable = true;
+                settings.width = 80;
+              };
+              prettier = {
+                enable = true;
+                settings.write = true;
               };
 
               statix-write = {
