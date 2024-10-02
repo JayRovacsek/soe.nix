@@ -2,47 +2,70 @@
   description = "Build nixos or nix-darwin configurations via layers";
 
   inputs = {
+    devshell = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:numtide/devshell";
+    };
+
     flake-utils.url = "github:numtide/flake-utils";
 
     gitignore = {
-      url = "github:hercules-ci/gitignore.nix";
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:hercules-ci/gitignore.nix";
     };
 
     git-hooks = {
-      url = "github:cachix/git-hooks.nix";
-
       inputs = {
         nixpkgs.follows = "nixpkgs";
         gitignore.follows = "gitignore";
       };
+      url = "github:cachix/git-hooks.nix";
     };
 
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     nix-darwin = {
-      url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:lnl7/nix-darwin";
     };
   };
 
-  outputs = { flake-utils, git-hooks, nixpkgs, self, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = import nixpkgs { inherit system; };
-      in {
+  outputs =
+    {
+      devshell,
+      flake-utils,
+      git-hooks,
+      nixpkgs,
+      self,
+      ...
+    }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = import nixpkgs {
+          overlays = [
+            devshell.overlays.default
+          ];
+          inherit system;
+        };
+      in
+      {
         checks = {
-          pre-commit = git-hooks.lib.${system}.run {
+          git-hooks = git-hooks.lib.${system}.run {
             src = self;
             hooks = {
               actionlint.enable = true;
+
               deadnix = {
                 enable = true;
                 settings.edit = true;
               };
-              nixfmt = {
+
+              nixfmt-rfc-style = {
                 enable = true;
                 settings.width = 80;
               };
+
               prettier = {
                 enable = true;
                 settings.write = true;
@@ -58,15 +81,22 @@
             };
           };
         };
-        devShells.default = pkgs.mkShell {
-          packages = with pkgs; [ nixfmt statix vulnix lix ];
-          # Self reference to make the default shell hook that which generates
-          # a suitable pre-commit hook installation
-          inherit (self.checks.${system}.pre-commit) shellHook;
+
+        devShells.default = pkgs.devshell.mkShell {
+          devshell.startup.git-hooks.text = self.checks.${system}.git-hooks.shellHook;
+          name = "nix-config";
+          packages = with pkgs; [
+            nixfmt-rfc-style
+            statix
+            vulnix
+            lix
+          ];
         };
 
         formatter = pkgs.nixfmt;
-      }) // {
-        lib = import ./lib { inherit self; };
-      };
+      }
+    )
+    // {
+      lib = import ./lib { inherit self; };
+    };
 }
